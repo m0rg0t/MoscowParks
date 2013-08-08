@@ -47,8 +47,15 @@ namespace moscow_parks.ViewModel
         [JsonProperty(PropertyName = "ao")]
         public string Ao { get; set; }
 
-        [JsonProperty(PropertyName = "image")]
-        public string Image { get; set; }
+        private string _image = "";
+        public string Image {
+            get {
+                return "http://moscow-parks.azurewebsites.net/parks/"+this.Id+".jpg";
+            }
+            set {
+                _image = value;
+            } 
+        }
 
     }
 }

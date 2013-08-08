@@ -62,7 +62,7 @@ namespace moscow_parks
 
             // Create a Frame to act navigation context and navigate to the first page
             var rootFrame = new Frame();
-            if (!rootFrame.Navigate(typeof(MainPage)))
+            if (!rootFrame.Navigate(typeof(ParksListPage)))
             {
                 throw new Exception("Failed to create initial page");
             }
