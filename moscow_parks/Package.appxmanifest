@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="moscow_parks.App">
-      <VisualElements DisplayName="moscow_parks" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="moscow_parks" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+      <VisualElements DisplayName="Парки Москвы" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Парки Москвы" ForegroundText="light" BackgroundColor="#1BA0E1" ToastCapable="true">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
         <InitialRotationPreference>

@@ -56,6 +56,17 @@ namespace moscow_parks.ViewModel
                 RaisePropertyChanged("Loading");
             }
         }
+
+        private ParkItem _currentItem;
+
+        public ParkItem CurrentItem
+        {
+            get { return _currentItem; }
+            set { 
+                _currentItem = value;
+                RaisePropertyChanged("CurrentItem");
+            }
+        }
         
 
         private MobileServiceCollection<ParkItem, ParkItem> parkItems;

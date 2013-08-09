@@ -64,6 +64,7 @@
                                         <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
                                         <LineBreak/>
                                         <LineBreak/>
+                                        <Run FontWeight="Normal" Text="Адрес:"/>
                                         <Run FontWeight="Normal" Text="{Binding Address}"/>
                                     </Paragraph>
                                     <Paragraph LineStackingStrategy="MaxHeight">
@@ -72,7 +73,26 @@
                                         </InlineUIContainer>
                                     </Paragraph>
                                     <Paragraph>
-                                        <Run FontWeight="SemiLight" Text="{Binding Content}"/>
+                                        <Run FontWeight="Normal" Text="Официальный адрес:"/>
+                                        <Run FontWeight="Normal" Text="{Binding OfficialAddress}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        <Run FontWeight="Normal" Text="Email:"/>
+                                        <Run FontWeight="Normal" Text="{Binding Email}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        <Run FontWeight="Normal" Text="Телефон:"/>
+                                        <Run FontWeight="Normal" Text="{Binding Phone}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        <Run FontWeight="Normal" Text="Факс:"/>
+                                        <Run FontWeight="Normal" Text="{Binding Fax}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
+                                        <Run FontWeight="Normal" Text="Район:"/>
+                                        <Run FontWeight="Normal" Text="{Binding District}"/>
+                                        <LineBreak/>
+                                        <LineBreak/>
                                     </Paragraph>
                                 </RichTextBlock>
 
