@@ -1,5 +1,6 @@
 ﻿using Bing.Maps;
 using Callisto.Controls;
+using moscow_parks.Controls;
 using moscow_parks.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -83,13 +84,11 @@ namespace moscow_parks
         /// сеанса. Это значение будет равно NULL при первом посещении страницы.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            ObservableCollection<ParkItem> mapsdata = new ObservableCollection<ParkItem>();
-            mapsdata = ViewModelLocator.MainStatic.Items;
-            foreach (ParkItem item in mapsdata)
+            foreach (ParkItem item in ViewModelLocator.MainStatic.Items)
             {
                 Pushpin pushpin = new Pushpin();
                 MapLayer.SetPosition(pushpin, new Location(item.Lat, item.Lon));
-                pushpin.Name = item.Name;
+                pushpin.Name = item.Id.ToString();
                 pushpin.Tapped += pushpinTapped;
                 map.Children.Add(pushpin);
             };
@@ -97,31 +96,26 @@ namespace moscow_parks
 
         Flyout box = new Flyout();
 
-        private async void pushpinTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            Pushpin tappedpin = sender as Pushpin;  // gets the pin that was tapped
-            if (null == tappedpin) return;  // null check to prevent bad stuff if it wasn't a pin.
-            //ViewModelLocator.MainStatic.CurrentTouristItem = (MapItem)ViewModelLocator.MainStatic.GetGroup("Tourist").Items.FirstOrDefault(c => c.UniqueId.ToString() == tappedpin.Name.ToString());
-
-            var x = MapLayer.GetPosition(tappedpin);
-
-            box = new Flyout();
-            box.Placement = PlacementMode.Top;
-            //box.Content = new TouristControl(); 
-            box.PlacementTarget = sender as UIElement;
-            box.IsOpen = true;
-            //MessageDialog dialog = new MessageDialog("You are here " + x.Latitude + " " + x.Longitude);
-            //await dialog.ShowAsync();
-        }
-
         private TappedEventHandler ShowFlyoutData()
         {
             throw new NotImplementedException();
         }
 
-        private void pushpin_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void pushpinTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            Pushpin tappedpin = sender as Pushpin;  // gets the pin that was tapped
+            if (null == tappedpin) return;  // null check to prevent bad stuff if it wasn't a pin.
+            ViewModelLocator.MainStatic.CurrentItem = (ParkItem)ViewModelLocator.MainStatic.Items.FirstOrDefault(c => c.Id.ToString() == tappedpin.Name.ToString());
 
+            var x = MapLayer.GetPosition(tappedpin);
+
+            box = new Flyout();
+            box.Placement = PlacementMode.Top;
+            box.Content = new TouristControl();
+            box.PlacementTarget = sender as UIElement;
+            box.IsOpen = true;
+            //MessageDialog dialog = new MessageDialog("You are here " + x.Latitude + " " + x.Longitude);
+            //await dialog.ShowAsync();
         }
 
         /// <summary>
@@ -135,9 +129,5 @@ namespace moscow_parks
             box.IsOpen = false;
         }
 
-        private void pageTitle_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
     }
 }

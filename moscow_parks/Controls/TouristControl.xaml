@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding Main.CurrentTouristItem, Source={StaticResource Locator}}"
+    DataContext="{Binding Main.CurrentItem, Source={StaticResource Locator}}"
     d:DesignHeight="300"
     d:DesignWidth="400" Background="White" BorderBrush="Black" BorderThickness="2">
 
@@ -24,7 +24,7 @@
             <TextBlock Text="{Binding Address}"  
                             Style="{StaticResource BodyTextStyle}" 
                             Margin="15,10,15,0" MaxHeight="90"/>
-            <Button Content="Прочитать" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="Button_Click" BorderThickness="0" Margin="0,15"  />
+            <Button Content="Открыть" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="Button_Click" BorderThickness="0" Margin="0,15"  />
         </StackPanel>
     </Grid>
 </UserControl>

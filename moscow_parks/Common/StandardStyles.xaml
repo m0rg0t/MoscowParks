@@ -579,6 +579,11 @@
         <Setter Property="AutomationProperties.Name" Value="Unpin"/>
         <Setter Property="Content" Value="&#xE196;"/>
     </Style>
+    <Style x:Key="MapAppBarButtonStyle" TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="MapAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Карта"/>
+        <Setter Property="Content" Value="&#xE1C4;"/>
+    </Style>
 
     <!-- Title area styles -->
 
@@ -973,6 +978,8 @@
             </ToolTipService.ToolTip>
         </Grid>
     </DataTemplate>
+
+
 
     <!-- ScrollViewer styles -->
 

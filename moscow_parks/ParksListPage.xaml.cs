@@ -1,4 +1,7 @@
-﻿using moscow_parks.ViewModel;
+﻿using Bing.Maps;
+using Callisto.Controls;
+using moscow_parks.Controls;
+using moscow_parks.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,20 +40,69 @@ namespace moscow_parks
         /// </param>
         /// <param name="pageState">Словарь состояния, сохраненного данной страницей в ходе предыдущего
         /// сеанса. Это значение будет равно NULL при первом посещении страницы.</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Присвоить this.DefaultViewModel["Group"] связываемую группу
             // TODO: Присвоить this.DefaultViewModel["Items"] коллекцию связываемых элементов
 
-            ViewModelLocator.MainStatic.LoadData();
+            await ViewModelLocator.MainStatic.LoadData();
+
+            foreach (ParkItem item in ViewModelLocator.MainStatic.Items)
+            {
+                Pushpin pushpin = new Pushpin();
+                MapLayer.SetPosition(pushpin, new Location(item.Lat, item.Lon));
+                pushpin.Name = item.Id.ToString();
+                pushpin.Tapped += pushpinTapped;
+                map.Children.Add(pushpin);
+            };         
+        }
+
+        Flyout box = new Flyout();
+
+        private async void pushpinTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Pushpin tappedpin = sender as Pushpin;  // gets the pin that was tapped
+            if (null == tappedpin) return;  // null check to prevent bad stuff if it wasn't a pin.
+            ViewModelLocator.MainStatic.CurrentItem = (ParkItem)ViewModelLocator.MainStatic.Items.FirstOrDefault(c => c.Id.ToString() == tappedpin.Name.ToString());
+
+            var x = MapLayer.GetPosition(tappedpin);
+
+            box = new Flyout();
+            box.Placement = PlacementMode.Top;
+            box.Content = new TouristControl();
+            box.PlacementTarget = sender as UIElement;
+            box.IsOpen = true;
+            //MessageDialog dialog = new MessageDialog("You are here " + x.Latitude + " " + x.Longitude);
+            //await dialog.ShowAsync();
         }
 
         private void itemGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             try
             {
+                box.IsOpen = false;
                 var item = ((ParkItem)e.ClickedItem);
                 this.Frame.Navigate(typeof(ParkDetailPage), item.Id.ToString());
+            }
+            catch { };
+        }
+
+        private void MapButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                box.IsOpen = false;
+                this.Frame.Navigate(typeof(MapPage));
+            }
+            catch { };
+        }
+
+        private void MapTitle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            try
+            {
+                box.IsOpen = false;
+                this.Frame.Navigate(typeof(MapPage));
             }
             catch { };
         }

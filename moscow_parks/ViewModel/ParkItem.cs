@@ -35,8 +35,25 @@ namespace moscow_parks.ViewModel
         [JsonProperty(PropertyName = "fax")]
         public string Fax { get; set; }
 
+        private string _phone = "";
         [JsonProperty(PropertyName = "phone")]
-        public string Phone { get; set; }
+        public string Phone
+        {
+            get
+            {
+                if (_phone != "")
+                {
+                    return _phone;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+            }
+        }
 
         [JsonProperty(PropertyName = "official_address")]
         public string OfficialAddress { get; set; }

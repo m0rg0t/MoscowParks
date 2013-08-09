@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using Microsoft.WindowsAzure.MobileServices;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace moscow_parks.ViewModel
 {
@@ -72,12 +73,14 @@ namespace moscow_parks.ViewModel
         private MobileServiceCollection<ParkItem, ParkItem> parkItems;
         private IMobileServiceTable<ParkItem> ParksTable = App.MobileService.GetTable<ParkItem>();
 
-        public async void LoadData()
+        public async Task<bool> LoadData()
         {
             this.Loading = true;
             Items = await ParksTable.ToCollectionAsync();
             RaisePropertyChanged("Items");
             this.Loading = false;
+
+            return true;
         }
         
     }
