@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Шаблон элемента пользовательского элемента управления задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace WhereIsPolicemanWin8.Controls
+namespace moscow_parks.Controls
 {
     public sealed partial class About : UserControl
     {

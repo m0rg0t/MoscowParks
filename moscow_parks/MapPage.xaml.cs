@@ -48,7 +48,7 @@ namespace moscow_parks
         {
             try
             {
-                /*var viewAboutPage = new SettingsCommand("", "Об авторе", cmd =>
+                var viewAboutPage = new SettingsCommand("", "Об авторе", cmd =>
                 {
                     //(Window.Current.Content as Frame).Navigate(typeof(AboutPage));
                     var settingsFlyout = new SettingsFlyout();
@@ -67,7 +67,7 @@ namespace moscow_parks
 
                     settingsFlyout.IsOpen = true;
                 });
-                args.Request.ApplicationCommands.Add(viewAboutMalukahPage);*/
+                args.Request.ApplicationCommands.Add(viewAboutMalukahPage);
             }
             catch { };
         }
@@ -114,8 +114,6 @@ namespace moscow_parks
             box.Content = new TouristControl();
             box.PlacementTarget = sender as UIElement;
             box.IsOpen = true;
-            //MessageDialog dialog = new MessageDialog("You are here " + x.Latitude + " " + x.Longitude);
-            //await dialog.ShowAsync();
         }
 
         /// <summary>
