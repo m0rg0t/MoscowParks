@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace moscow_parks.ViewModel
 {
-    public class ParkItem
+    public class ParkItem: ViewModelBase
     {
         public int Id { get; set; }
 
@@ -26,14 +27,69 @@ namespace moscow_parks.ViewModel
         [JsonProperty(PropertyName = "lon")]
         public double Lon { get; set; }
 
+        private string _email = "";
         [JsonProperty(PropertyName = "email")]
-        public string Email { get; set; }
+        public string Email {
+            get
+            {
+                if (_email != "")
+                {
+                    return _email;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+                _email = value;
+                RaisePropertyChanged("Email");
+            }
+        }
 
+        private string _site = "";
         [JsonProperty(PropertyName = "site")]
-        public string Site { get; set; }
+        public string Site {
+            get
+            {
+                if (_site != "")
+                {
+                    return _site;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+                _site = value;
+                RaisePropertyChanged("Site");
+            }
+        }
 
+        private string _fax = "";
         [JsonProperty(PropertyName = "fax")]
-        public string Fax { get; set; }
+        public string Fax
+        {
+            get
+            {
+                if (_fax != "")
+                {
+                    return _fax;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+                _fax = value;
+                RaisePropertyChanged("Fax");
+            }
+        }
 
         private string _phone = "";
         [JsonProperty(PropertyName = "phone")]
@@ -41,7 +97,7 @@ namespace moscow_parks.ViewModel
         {
             get
             {
-                if (_phone != "")
+                if ((_phone != "") && (_phone != null))
                 {
                     return _phone;
                 }
@@ -52,11 +108,31 @@ namespace moscow_parks.ViewModel
             }
             set
             {
+                _phone = value;
+                RaisePropertyChanged("Phone");
             }
         }
 
+        private string _officialAddress = "";
         [JsonProperty(PropertyName = "official_address")]
-        public string OfficialAddress { get; set; }
+        public string OfficialAddress {
+            get
+            {
+                if (_officialAddress != "")
+                {
+                    return _officialAddress;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+                _officialAddress = value;
+                RaisePropertyChanged("OfficialAddress");
+            }
+        }
 
         [JsonProperty(PropertyName = "district")]
         public string District { get; set; }
