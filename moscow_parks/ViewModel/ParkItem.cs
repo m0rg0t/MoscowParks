@@ -43,7 +43,7 @@ namespace moscow_parks.ViewModel
             }
             set
             {
-                _email = value;
+                _email = value.Trim();
                 RaisePropertyChanged("Email");
             }
         }
@@ -64,7 +64,7 @@ namespace moscow_parks.ViewModel
             }
             set
             {
-                _site = value;
+                _site = value.Trim();
                 RaisePropertyChanged("Site");
             }
         }
@@ -86,7 +86,7 @@ namespace moscow_parks.ViewModel
             }
             set
             {
-                _fax = value;
+                _fax = value.Trim();
                 RaisePropertyChanged("Fax");
             }
         }
@@ -108,7 +108,7 @@ namespace moscow_parks.ViewModel
             }
             set
             {
-                _phone = value;
+                _phone = value.Trim();
                 RaisePropertyChanged("Phone");
             }
         }
@@ -129,13 +129,30 @@ namespace moscow_parks.ViewModel
             }
             set
             {
-                _officialAddress = value;
+                _officialAddress = value.Trim();
                 RaisePropertyChanged("OfficialAddress");
             }
         }
 
+        private string _district = "";
         [JsonProperty(PropertyName = "district")]
-        public string District { get; set; }
+        public string District { 
+            get {
+                if (_district != "")
+                {
+                    return _district;
+                }
+                else
+                {
+                    return "не указан";
+                };
+            }
+            set
+            {
+                _district = value.Trim();
+                RaisePropertyChanged("District");
+            }
+        }
 
         [JsonProperty(PropertyName = "ao")]
         public string Ao { get; set; }
