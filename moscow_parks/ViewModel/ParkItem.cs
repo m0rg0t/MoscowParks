@@ -72,7 +72,8 @@ namespace moscow_parks.ViewModel
                 _siteVisibility = value;
                 RaisePropertyChanged("SiteVisibility");
             }
-        }        
+        }       
+
         private string _site = "";
         [JsonProperty(PropertyName = "site")]
         public string Site {
@@ -80,10 +81,12 @@ namespace moscow_parks.ViewModel
             {
                 if (_site != "")
                 {
+                    SiteVisibility = Visibility.Visible;
                     return _site;
                 }
                 else
                 {
+                    SiteVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }

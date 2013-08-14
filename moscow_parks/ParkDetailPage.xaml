@@ -65,49 +65,55 @@
                         События Loaded/unloaded явным образом подписываются на обновления состояний представления страницы
                     -->
                     <UserControl Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates">
-                        <ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}" Grid.Row="1">
-                            <Grid Margin="117,0,20,47" Height="Auto" Grid.Column="2">
+                        <!--<ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}" Grid.Row="1">-->
+                        <StackPanel Grid.Row="1">
+                            <Grid Margin="117,0,40,47" Height="Auto" Grid.Column="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="420" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <!-- Содержимое может занимать столько столбцов, сколько потребуется -->
-                                <Grid x:Name="richTextColumns" Margin="20,0,20,47" 
+                                <Grid Width="Auto" x:Name="richTextColumns" Margin="20,0,20,47" 
                                     Grid.Column="1" VerticalAlignment="Top">
                                     <StackPanel x:Name="richTextBlock">
                                             <TextBlock
-											Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap"
+											Style="{StaticResource PageSubheaderTextStyle}" TextWrapping="Wrap"
 											Text="{Binding Title}" />
 
                                             <TextBlock Text="{Binding Address}" 
-											Style="{StaticResource PageSubheaderTextStyle}"
-											TextWrapping="Wrap"/>
+											Style="{StaticResource SubheaderTextStyle}"
+											TextWrapping="Wrap" Margin="0,-20,0,0"/>
 
-                                                <Image x:Name="image" MaxHeight="480" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}"/>
+                                            <Image x:Name="image" MaxHeight="280" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}" HorizontalAlignment="Left"/>
 
-                                                <StackPanel Visibility="{Binding OfficialAddressVisibility}">
-                                                    <TextBlock Text="Официальный адрес:"/>
-                                                    <TextBlock FontWeight="Normal" Text="{Binding OfficialAddress}"/>
-                                                </StackPanel>
-
-                                                <StackPanel Visibility="{Binding EmailVisibility}">
-                                                    <TextBlock Text="Email:"/>
-                                                    <TextBlock FontWeight="Normal" Text="{Binding Email}"/>
-                                                </StackPanel>
-
-                                                <StackPanel Visibility="{Binding PhoneVisibility}">
-                                                    <TextBlock Text="Телефон:"/>
-                                                    <TextBlock FontWeight="Normal" Text="{Binding Phone}"/>
-                                                </StackPanel>
-
-                                            <StackPanel Visibility="{Binding FaxVisibility}">
-                                                <TextBlock Text="Факс:"/>
-                                                <TextBlock FontWeight="Normal" Text="{Binding Fax}"/>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding OfficialAddressVisibility}">
+                                            <TextBlock Text="Официальный адрес: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Text="{Binding OfficialAddress}" Style="{StaticResource BodyTextStyle}"/>
                                             </StackPanel>
 
-                                            <StackPanel Visibility="{Binding DistrictVisibility}">
-                                                <TextBlock Text="Район:"/>
-                                                <TextBlock FontWeight="Normal" Text="{Binding District}"/>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding EmailVisibility}">
+                                            <TextBlock Text="Email: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Text="{Binding Email}" Style="{StaticResource BodyTextStyle}"/>
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding PhoneVisibility}">
+                                            <TextBlock Text="Телефон: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Text="{Binding Phone}" Style="{StaticResource BodyTextStyle}"/>
+                                            </StackPanel>
+
+                                            <StackPanel  Orientation="Horizontal" Visibility="{Binding FaxVisibility}">
+                                            <TextBlock Text="Факс: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Text="{Binding Fax}" Style="{StaticResource BodyTextStyle}"/>
+                                            </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
+                                            <TextBlock Text="Сайт: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Style="{StaticResource BodyTextStyle}" Text="{Binding Site}"/>
+                                            </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding DistrictVisibility}">
+                                                <TextBlock Text="Район: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Text="{Binding District}" Style="{StaticResource BodyTextStyle}"/>
                                             </StackPanel>
 
                                     </StackPanel>
@@ -163,7 +169,7 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups> -->
-                        </ScrollViewer>
+                        </StackPanel>
                     </UserControl>
                 </DataTemplate>
             </FlipView.ItemTemplate>
