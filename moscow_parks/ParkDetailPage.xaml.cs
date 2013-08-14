@@ -1,4 +1,5 @@
-﻿using Callisto.Controls;
+﻿using Bing.Maps;
+using Callisto.Controls;
 using moscow_parks.Controls;
 using moscow_parks.ViewModel;
 using System;
@@ -107,6 +108,49 @@ namespace moscow_parks
         {
             var selectedItem = this.flipView.SelectedItem;
             // TODO: Создание производного сериализуемого параметра навигации и его назначение объекту pageState["SelectedItem"]
+        }
+
+        private void map_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void flipView_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectedItem = (ParkItem)this.flipView.SelectedItem;
+
+                Pushpin pushpin = new Pushpin();
+                MapLayer.SetPosition(pushpin, new Location(selectedItem.Lat, selectedItem.Lon));
+                pushpin.Name = selectedItem.Id.ToString();
+                //pushpin.Tapped += pushpinTapped;
+                this.map.Children.Clear();
+                this.map.Children.Add(pushpin);
+                this.map.SetView(new Location(selectedItem.Lat, selectedItem.Lon), 13);
+            }
+            catch { };
+        }
+
+        private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModelLocator.MainStatic.CurrentItem = (ParkItem)this.flipView.SelectedItem;
+            /*ViewModelLocator.MainStatic.Stations.CurrentStation = (YAStationItem)this.flipView.SelectedItem;
+            DependencyObject deObj = sender as DependencyObject;
+            vtree(deObj, 0);*/
+            try
+            {
+                var selectedItem = (ParkItem)this.flipView.SelectedItem;
+
+                Pushpin pushpin = new Pushpin();
+                MapLayer.SetPosition(pushpin, new Location(selectedItem.Lat, selectedItem.Lon));
+                pushpin.Name = selectedItem.Id.ToString();
+                //pushpin.Tapped += pushpinTapped;
+                this.map.Children.Clear();
+                this.map.Children.Add(pushpin);
+                this.map.SetView(new Location(selectedItem.Lat, selectedItem.Lon), 13);
+            }
+            catch { };
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace moscow_parks.ViewModel
 {
@@ -27,6 +28,19 @@ namespace moscow_parks.ViewModel
         [JsonProperty(PropertyName = "lon")]
         public double Lon { get; set; }
 
+        private Visibility _emailVisibility;
+        public Visibility EmailVisibility
+        {
+            get
+            {
+                return _emailVisibility;
+            }
+            set
+            {
+                _emailVisibility = value;
+                RaisePropertyChanged("EmailVisibility");
+            }
+        }
         private string _email = "";
         [JsonProperty(PropertyName = "email")]
         public string Email {
@@ -34,10 +48,12 @@ namespace moscow_parks.ViewModel
             {
                 if (_email != "")
                 {
+                    EmailVisibility = Visibility.Visible;
                     return _email;
                 }
                 else
                 {
+                    EmailVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }
@@ -48,6 +64,15 @@ namespace moscow_parks.ViewModel
             }
         }
 
+        private Visibility _siteVisibility;
+        public Visibility SiteVisibility
+        {
+            get { return _siteVisibility; }
+            set { 
+                _siteVisibility = value;
+                RaisePropertyChanged("SiteVisibility");
+            }
+        }        
         private string _site = "";
         [JsonProperty(PropertyName = "site")]
         public string Site {
@@ -69,6 +94,16 @@ namespace moscow_parks.ViewModel
             }
         }
 
+        private Visibility _FaxVisibility;
+        public Visibility FaxVisibility
+        {
+            get { return _FaxVisibility; }
+            set
+            {
+                _FaxVisibility = value;
+                RaisePropertyChanged("FaxVisibility");
+            }
+        }  
         private string _fax = "";
         [JsonProperty(PropertyName = "fax")]
         public string Fax
@@ -77,10 +112,12 @@ namespace moscow_parks.ViewModel
             {
                 if (_fax != "")
                 {
+                    FaxVisibility = Visibility.Visible;
                     return _fax;
                 }
                 else
                 {
+                    FaxVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }
@@ -91,6 +128,16 @@ namespace moscow_parks.ViewModel
             }
         }
 
+        private Visibility _PhoneVisibility;
+        public Visibility PhoneVisibility
+        {
+            get { return _PhoneVisibility; }
+            set
+            {
+                _PhoneVisibility = value;
+                RaisePropertyChanged("PhoneVisibility");
+            }
+        } 
         private string _phone = "";
         [JsonProperty(PropertyName = "phone")]
         public string Phone
@@ -99,10 +146,12 @@ namespace moscow_parks.ViewModel
             {
                 if ((_phone != "") && (_phone != null))
                 {
+                    PhoneVisibility = Visibility.Visible;
                     return _phone;
                 }
                 else
                 {
+                    PhoneVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }
@@ -113,6 +162,16 @@ namespace moscow_parks.ViewModel
             }
         }
 
+        private Visibility _OfficialAddressVisibility;
+        public Visibility OfficialAddressVisibility
+        {
+            get { return _OfficialAddressVisibility; }
+            set
+            {
+                _OfficialAddressVisibility = value;
+                RaisePropertyChanged("OfficialAddressVisibility");
+            }
+        } 
         private string _officialAddress = "";
         [JsonProperty(PropertyName = "official_address")]
         public string OfficialAddress {
@@ -120,10 +179,12 @@ namespace moscow_parks.ViewModel
             {
                 if (_officialAddress != "")
                 {
+                    OfficialAddressVisibility = Visibility.Visible;
                     return _officialAddress;
                 }
                 else
                 {
+                    OfficialAddressVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }
@@ -134,16 +195,28 @@ namespace moscow_parks.ViewModel
             }
         }
 
+        private Visibility _DistrictVisibility;
+        public Visibility DistrictVisibility
+        {
+            get { return _DistrictVisibility; }
+            set
+            {
+                _DistrictVisibility = value;
+                RaisePropertyChanged("DistrictVisibility");
+            }
+        } 
         private string _district = "";
         [JsonProperty(PropertyName = "district")]
         public string District { 
             get {
                 if (_district != "")
                 {
+                    DistrictVisibility = Visibility.Visible;
                     return _district;
                 }
                 else
                 {
+                    DistrictVisibility = Visibility.Collapsed;
                     return "не указан";
                 };
             }

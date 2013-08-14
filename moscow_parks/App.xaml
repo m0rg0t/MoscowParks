@@ -5,7 +5,8 @@
              xmlns:local="using:moscow_parks" RequestedTheme="Light" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:vm="using:moscow_parks.ViewModel" mc:Ignorable="d">
+             xmlns:vm="using:moscow_parks.ViewModel" mc:Ignorable="d"
+             xmlns:my="using:moscow_parks.ViewModel">
 
     <Application.Resources>
         <ResourceDictionary>

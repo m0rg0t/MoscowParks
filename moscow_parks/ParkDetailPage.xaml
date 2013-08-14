@@ -8,6 +8,7 @@
     xmlns:common="using:moscow_parks.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bm="using:Bing.Maps" 
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -29,18 +30,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <bm:Map MinHeight="460" Grid.Column="0" Grid.Row="1" Width="400" Height="Auto" Tag="{Binding Name}"
+                                       Margin="117,20,20,47" Name="map"                
+                                       Credentials="AtWHaWcUiDBPpGfbyXlERRH40dgNra0bA3PHO5L05C4X9vrauIeApjBa9MKOxeTy" 
+                                       ZoomLevel="14" Heading="14" VerticalAlignment="Top" 
+                                       HorizontalAlignment="Left" Canvas.ZIndex="2" Loaded="map_Loaded"/>
+
         <!--
             Оставшаяся часть страницы представляет собой один большой объект FlipView, на котором в каждый момент времени отображаются
             сведения об одном элементе, что позволяет пользователю перемещаться между всеми элементами в выбранной
             группе
         -->
+
+		<!--<TextBlock Text="123{Binding Title}" Style="{StaticResource PageSubheaderTextStyle}" TextWrapping="Wrap"/>-->
+
         <FlipView
             x:Name="flipView"
             AutomationProperties.AutomationId="ItemsFlipView"
             AutomationProperties.Name="Item Details"
             TabIndex="1"
             Grid.RowSpan="2"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}">
+            ItemsSource="{Binding Source={StaticResource itemsViewSource}}" Loaded="flipView_Loaded" SelectionChanged="flipView_SelectionChanged">
 
             <FlipView.ItemContainerStyle>
                 <Style TargetType="FlipViewItem">
@@ -56,66 +66,73 @@
                     -->
                     <UserControl Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates">
                         <ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}" Grid.Row="1">
+                            <Grid Margin="117,0,20,47" Height="Auto" Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="420" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <!-- Содержимое может занимать столько столбцов, сколько потребуется -->
+                                <Grid x:Name="richTextColumns" Margin="20,0,20,47" 
+                                    Grid.Column="1" VerticalAlignment="Top">
+                                    <StackPanel x:Name="richTextBlock">
+                                            <TextBlock
+											Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap"
+											Text="{Binding Title}" />
 
-                            <!-- Содержимое может занимать столько столбцов, сколько потребуется -->
-                            <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
-                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False">
-                                    <Paragraph>
-                                        <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                        <Run FontWeight="Normal" Text="Адрес:"/>
-                                        <Run FontWeight="Normal" Text="{Binding Address}"/>
-                                    </Paragraph>
-                                    <Paragraph LineStackingStrategy="MaxHeight">
-                                        <InlineUIContainer>
-                                            <Image x:Name="image" MaxHeight="480" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}"/>
-                                        </InlineUIContainer>
-                                    </Paragraph>
-                                    <Paragraph>
-                                        <Run FontWeight="Normal" Text="Официальный адрес:"/>
-                                        <Run FontWeight="Normal" Text="{Binding OfficialAddress}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                        <Run FontWeight="Normal" Text="Email:"/>
-                                        <Run FontWeight="Normal" Text="{Binding Email}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                        <Run FontWeight="Normal" Text="Телефон:"/>
-                                        <Run FontWeight="Normal" Text="{Binding Phone}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                        <Run FontWeight="Normal" Text="Факс:"/>
-                                        <Run FontWeight="Normal" Text="{Binding Fax}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                        <Run FontWeight="Normal" Text="Район:"/>
-                                        <Run FontWeight="Normal" Text="{Binding District}"/>
-                                        <LineBreak/>
-                                        <LineBreak/>
-                                    </Paragraph>
-                                </RichTextBlock>
+                                            <TextBlock Text="{Binding Address}" 
+											Style="{StaticResource PageSubheaderTextStyle}"
+											TextWrapping="Wrap"/>
 
-                                <!-- На основании этого шаблона создаются дополнительные столбцы -->
-                                <common:RichTextColumns.ColumnTemplate>
-                                    <DataTemplate>
-                                        <RichTextBlockOverflow Width="560" Margin="80,0,0,0">
-                                            <RichTextBlockOverflow.RenderTransform>
-                                                <TranslateTransform X="-1" Y="4"/>
-                                            </RichTextBlockOverflow.RenderTransform>
-                                        </RichTextBlockOverflow>
-                                    </DataTemplate>
-                                </common:RichTextColumns.ColumnTemplate>
-                            </common:RichTextColumns>
+                                                <Image x:Name="image" MaxHeight="480" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}"/>
 
-                            <VisualStateManager.VisualStateGroups>
+                                                <StackPanel Visibility="{Binding OfficialAddressVisibility}">
+                                                    <TextBlock Text="Официальный адрес:"/>
+                                                    <TextBlock FontWeight="Normal" Text="{Binding OfficialAddress}"/>
+                                                </StackPanel>
 
-                                <!-- Состояния отображения определяют состояние представления приложения внутри FlipView -->
+                                                <StackPanel Visibility="{Binding EmailVisibility}">
+                                                    <TextBlock Text="Email:"/>
+                                                    <TextBlock FontWeight="Normal" Text="{Binding Email}"/>
+                                                </StackPanel>
+
+                                                <StackPanel Visibility="{Binding PhoneVisibility}">
+                                                    <TextBlock Text="Телефон:"/>
+                                                    <TextBlock FontWeight="Normal" Text="{Binding Phone}"/>
+                                                </StackPanel>
+
+                                            <StackPanel Visibility="{Binding FaxVisibility}">
+                                                <TextBlock Text="Факс:"/>
+                                                <TextBlock FontWeight="Normal" Text="{Binding Fax}"/>
+                                            </StackPanel>
+
+                                            <StackPanel Visibility="{Binding DistrictVisibility}">
+                                                <TextBlock Text="Район:"/>
+                                                <TextBlock FontWeight="Normal" Text="{Binding District}"/>
+                                            </StackPanel>
+
+                                    </StackPanel>
+
+                                    <!-- На основании этого шаблона создаются дополнительные столбцы -->
+                                    <!--<common:RichTextColumns.ColumnTemplate>
+                                        <DataTemplate>
+                                            <RichTextBlockOverflow Width="560" Margin="80,0,0,0">
+                                                <RichTextBlockOverflow.RenderTransform>
+                                                    <TranslateTransform X="-1" Y="4"/>
+                                                </RichTextBlockOverflow.RenderTransform>
+                                            </RichTextBlockOverflow>
+                                        </DataTemplate>
+                                    </common:RichTextColumns.ColumnTemplate>-->
+                                </Grid>
+                            </Grid>
+
+                            <!--<VisualStateManager.VisualStateGroups>
+
+                                
                                 <VisualStateGroup x:Name="ApplicationViewStates">
                                     <VisualState x:Name="FullScreenLandscape"/>
                                     <VisualState x:Name="Filled"/>
 
-                                    <!-- Учитывайте принятое соглашение о более узких полях (100 пикселей) для книжного представления -->
+                                    
                                     <VisualState x:Name="FullScreenPortrait">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="richTextColumns" Storyboard.TargetProperty="Margin">
@@ -127,7 +144,7 @@
                                         </Storyboard>
                                     </VisualState>
 
-                                    <!-- В прикрепленном состоянии содержимое переформатируется и проматывается вертикально -->
+                                    
                                     <VisualState x:Name="Snapped">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="richTextColumns" Storyboard.TargetProperty="Margin">
@@ -145,7 +162,7 @@
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
+                            </VisualStateManager.VisualStateGroups> -->
                         </ScrollViewer>
                     </UserControl>
                 </DataTemplate>
