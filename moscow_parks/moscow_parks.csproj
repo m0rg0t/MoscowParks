@@ -143,6 +143,9 @@
     <Compile Include="Common\QuickStartTask.xaml.cs">
       <DependentUpon>QuickStartTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SearchResultsPage.xaml.cs">
+      <DependentUpon>SearchResultsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ParkItem.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -159,6 +162,10 @@
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Common\ReadMe.txt" />
+    <Page Include="SearchResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Include="moscow_parks_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Page Include="MapPage.xaml">

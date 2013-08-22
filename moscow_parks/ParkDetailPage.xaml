@@ -106,10 +106,10 @@
                                             <TextBlock FontWeight="Normal" Text="{Binding Fax}" Style="{StaticResource BodyTextStyle}"/>
                                             </StackPanel>
 
-                                        <StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
+                                            <!--<StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
                                             <TextBlock Text="Сайт: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Style="{StaticResource BodyTextStyle}" Text="{Binding Site}"/>
-                                            </StackPanel>
+                                            </StackPanel>-->
 
                                         <StackPanel Orientation="Horizontal" Visibility="{Binding DistrictVisibility}">
                                                 <TextBlock Text="Район: " Style="{StaticResource BodyTextStyle}"/>

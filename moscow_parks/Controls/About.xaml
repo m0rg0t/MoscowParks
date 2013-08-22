@@ -15,13 +15,7 @@
 		Margin="0,10,0,10" TextWrapping="Wrap" Text="Автор - Ленев Антон Сергеевич" 
 		VerticalAlignment="Top" Foreground="Black"  Style="{StaticResource BodyTextStyle}"/>
 
-            <HyperlinkButton Content="@m0rg0t" HorizontalAlignment="Left" 
-			NavigateUri="http://twitter.com/m0rg0t" Foreground="#FF420000" FontSize="16" FontWeight="Normal" Margin="-15,0,0,0"/>
-
-            <HyperlinkButton Content="http://m0rg0t.ru" HorizontalAlignment="Left" 
-			NavigateUri="http://m0rg0t.ru" Foreground="#FF420000" FontSize="16" FontWeight="Normal" Margin="-15,0,0,0"/>
-
-            <HyperlinkButton Content="m0rg0t.Anton@gmail.com" HorizontalAlignment="Left" 
+            <HyperlinkButton Content="Email: m0rg0t.Anton@gmail.com" HorizontalAlignment="Left" 
 			NavigateUri="mailto:m0rg0t.Anton@gmail.com" Foreground="#FF420000" FontSize="16" FontWeight="Normal" Margin="-15,0,0,0"/>
         </StackPanel>
     </Grid>
