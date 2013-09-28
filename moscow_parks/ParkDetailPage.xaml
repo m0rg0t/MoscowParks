@@ -19,6 +19,27 @@
             Source="{Binding Items}"/>
     </Page.Resources>
 
+    <common:LayoutAwarePage.BottomAppBar>
+        <AppBar Background="#FFACACAC">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="AddCommentButton" HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch" 
+                            Style="{StaticResource AddAppBarButtonStyle}" Click="AddCommentButton_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <!--<Button x:Name="RefreshButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource RefreshAppBarButtonStyle}" Click="RefreshButton_Click"/>-->
+
+                    <!--<Button x:Name="WriteProblem1AppBarButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource WriteProblem1AppBarButtonStyle}" Click="WriteProblem1AppBarButton_Click"/>-->
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </common:LayoutAwarePage.BottomAppBar>
+    
     <!--
         Эта сетка выступает в роли корневой области страницы и определяет две строки:
         * Строка 0 содержит кнопку "Назад" и заголовок страницы
@@ -76,45 +97,50 @@
                                 <Grid Width="Auto" x:Name="richTextColumns" Margin="20,0,20,47" 
                                     Grid.Column="1" VerticalAlignment="Top">
                                     <StackPanel x:Name="richTextBlock">
-                                            <TextBlock
+                                        <TextBlock
 											Style="{StaticResource PageSubheaderTextStyle}" TextWrapping="Wrap"
 											Text="{Binding Title}" />
 
-                                            <TextBlock Text="{Binding Address}" 
+                                        <TextBlock Text="{Binding Address}" 
 											Style="{StaticResource SubheaderTextStyle}"
 											TextWrapping="Wrap" Margin="0,-20,0,0"/>
 
-                                            <Image x:Name="image" MaxHeight="280" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}" HorizontalAlignment="Left"/>
+                                        <Image x:Name="image" MaxHeight="280" Margin="0,20,0,10" Stretch="Uniform" Source="{Binding Image}" AutomationProperties.Name="{Binding Title}" HorizontalAlignment="Left"/>
 
-                                            <StackPanel Orientation="Horizontal" Visibility="{Binding OfficialAddressVisibility}">
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding OfficialAddressVisibility}">
                                             <TextBlock Text="Официальный адрес: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding OfficialAddress}" Style="{StaticResource BodyTextStyle}"/>
-                                            </StackPanel>
+                                        </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal" Visibility="{Binding EmailVisibility}">
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding EmailVisibility}">
                                             <TextBlock Text="Email: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding Email}" Style="{StaticResource BodyTextStyle}"/>
-                                            </StackPanel>
+                                        </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal" Visibility="{Binding PhoneVisibility}">
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding PhoneVisibility}">
                                             <TextBlock Text="Телефон: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding Phone}" Style="{StaticResource BodyTextStyle}"/>
-                                            </StackPanel>
+                                        </StackPanel>
 
-                                            <StackPanel  Orientation="Horizontal" Visibility="{Binding FaxVisibility}">
+                                        <StackPanel  Orientation="Horizontal" Visibility="{Binding FaxVisibility}">
                                             <TextBlock Text="Факс: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding Fax}" Style="{StaticResource BodyTextStyle}"/>
-                                            </StackPanel>
+                                        </StackPanel>
 
-                                            <!--<StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
+                                        <!--<StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
                                             <TextBlock Text="Сайт: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Style="{StaticResource BodyTextStyle}" Text="{Binding Site}"/>
                                             </StackPanel>-->
 
                                         <StackPanel Orientation="Horizontal" Visibility="{Binding DistrictVisibility}">
-                                                <TextBlock Text="Район: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock Text="Район: " Style="{StaticResource BodyTextStyle}"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding District}" Style="{StaticResource BodyTextStyle}"/>
-                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Добавить комментарий" Click="AddCommentButton_Click" Margin="20,20,0,0"/>
+                                            <Button Content="Просмотр комментариев" Click="Button_Click" Margin="20,20,0,0"/>
+                                        </StackPanel>
 
                                     </StackPanel>
 
@@ -184,6 +210,11 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Text="Парки Москвы" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false"/>
         </Grid>
+
+        <ProgressRing HorizontalAlignment="Center" 
+		VerticalAlignment="Center" Grid.ColumnSpan="2" Width="130" Height="130"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+		Grid.RowSpan="2" IsActive="{Binding Path=Loading}"/>
 
         <VisualStateManager.VisualStateGroups>
 

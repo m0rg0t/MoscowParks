@@ -9,6 +9,7 @@ using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -149,6 +150,50 @@ namespace moscow_parks
                 this.map.Children.Clear();
                 this.map.Children.Add(pushpin);
                 this.map.SetView(new Location(selectedItem.Lat, selectedItem.Lon), 13);
+            }
+            catch { };
+        }
+
+        private void AddCommentButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewModelLocator.MainStatic.AddBox = new Flyout();
+                ViewModelLocator.MainStatic.AddBox.Placement = PlacementMode.Top;
+                ViewModelLocator.MainStatic.AddBox.Content = new AddCommentControl();
+                ViewModelLocator.MainStatic.AddBox.PlacementTarget = sender as UIElement;
+                ViewModelLocator.MainStatic.AddBox.IsOpen = true;
+            }
+            catch { };
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                try
+                {
+                    ParkItem item = (ParkItem)this.flipView.SelectedItem;
+                    ViewModelLocator.MainStatic.CurrentItem = item;
+
+                    //if (item.CommentItems.Count() < 1)
+                    //{
+                    ViewModelLocator.MainStatic.Loading = true;
+                    await item.LoadComments();
+                    ViewModelLocator.MainStatic.Loading = false;
+
+                    if (item.CommentItems.Count() < 1)
+                    {
+                        MessageDialog result = new MessageDialog("К сожалению у района еще не добавлены комментарии о качетсве воды. Вы можете стать первым и добавить свой комментарий.");
+                        result.ShowAsync();
+                    }
+                    else
+                    {
+                        this.Frame.Navigate(typeof(CommentsSplitPage), item.Id.ToString());
+                    };
+                    //};
+                }
+                catch { };
             }
             catch { };
         }

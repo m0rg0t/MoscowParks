@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
+using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -236,11 +238,35 @@ namespace moscow_parks.ViewModel
         private string _image = "";
         public string Image {
             get {
-                return "http://moscow-parks.azurewebsites.net/parks/"+this.Id+".jpg";
+                //return "http://moscow-parks.azurewebsites.net/parks/"+this.Id+".jpg";
+                return "/Assets/parks/"+this.Id+".jpg";
             }
             set {
                 _image = value;
             } 
+        }
+
+        private ObservableCollection<CommentItem> _commentItems = new ObservableCollection<CommentItem>();
+        /// <summary>
+        /// Список комментариев
+        /// </summary>
+        public ObservableCollection<CommentItem> CommentItems
+        {
+            get { return _commentItems; }
+            set
+            {
+                _commentItems = value;
+                RaisePropertyChanged("CommentItems");
+            }
+        }
+
+        private MobileServiceCollection<CommentItem, CommentItem> commentItems;
+        private IMobileServiceTable<CommentItem> CommentTable = App.MobileService.GetTable<CommentItem>();
+
+        public async Task<bool> LoadComments()
+        {
+            this.CommentItems = await CommentTable.Where(c => c.ParkId == this.Id.ToString()).ToCollectionAsync();
+            return true;
         }
 
     }

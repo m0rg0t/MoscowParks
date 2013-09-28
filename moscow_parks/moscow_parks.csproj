@@ -107,6 +107,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommentsSplitPage.xaml.cs">
+      <DependentUpon>CommentsSplitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
@@ -118,6 +121,9 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Controls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddCommentControl.xaml.cs">
+      <DependentUpon>AddCommentControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Privacy.xaml.cs">
       <DependentUpon>Privacy.xaml</DependentUpon>
@@ -146,6 +152,7 @@
     <Compile Include="SearchResultsPage.xaml.cs">
       <DependentUpon>SearchResultsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CommentItem.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ParkItem.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -158,9 +165,93 @@
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\moscow_parks_logo.png" />
+    <Content Include="Assets\parks\1.jpg" />
+    <Content Include="Assets\parks\10.jpg" />
+    <Content Include="Assets\parks\11.jpg" />
+    <Content Include="Assets\parks\12.jpg" />
+    <Content Include="Assets\parks\13.jpg" />
+    <Content Include="Assets\parks\14.jpg" />
+    <Content Include="Assets\parks\15.jpg" />
+    <Content Include="Assets\parks\16.jpg" />
+    <Content Include="Assets\parks\17.jpg" />
+    <Content Include="Assets\parks\18.jpg" />
+    <Content Include="Assets\parks\19.JPG" />
+    <Content Include="Assets\parks\2.jpg" />
+    <Content Include="Assets\parks\20.jpg" />
+    <Content Include="Assets\parks\21.jpg" />
+    <Content Include="Assets\parks\22.jpg" />
+    <Content Include="Assets\parks\23.jpg" />
+    <Content Include="Assets\parks\24.jpg" />
+    <Content Include="Assets\parks\25.jpg" />
+    <Content Include="Assets\parks\26.jpg" />
+    <Content Include="Assets\parks\27.jpg" />
+    <Content Include="Assets\parks\28.jpg" />
+    <Content Include="Assets\parks\29.jpg" />
+    <Content Include="Assets\parks\3.jpg" />
+    <Content Include="Assets\parks\30.jpg" />
+    <Content Include="Assets\parks\31.jpg" />
+    <Content Include="Assets\parks\32.jpg" />
+    <Content Include="Assets\parks\33.jpg" />
+    <Content Include="Assets\parks\34.jpg" />
+    <Content Include="Assets\parks\35.jpg" />
+    <Content Include="Assets\parks\36.jpg" />
+    <Content Include="Assets\parks\37.jpg" />
+    <Content Include="Assets\parks\38.jpg" />
+    <Content Include="Assets\parks\39.jpg" />
+    <Content Include="Assets\parks\4.jpg" />
+    <Content Include="Assets\parks\40.jpg" />
+    <Content Include="Assets\parks\41.jpg" />
+    <Content Include="Assets\parks\42.jpg" />
+    <Content Include="Assets\parks\43.jpg" />
+    <Content Include="Assets\parks\44.jpg" />
+    <Content Include="Assets\parks\45.jpg" />
+    <Content Include="Assets\parks\46.jpg" />
+    <Content Include="Assets\parks\47.jpg" />
+    <Content Include="Assets\parks\48.jpg" />
+    <Content Include="Assets\parks\49.jpg" />
+    <Content Include="Assets\parks\5.jpg" />
+    <Content Include="Assets\parks\50.jpg" />
+    <Content Include="Assets\parks\51.jpg" />
+    <Content Include="Assets\parks\52.jpg" />
+    <Content Include="Assets\parks\53.jpg" />
+    <Content Include="Assets\parks\54.jpg" />
+    <Content Include="Assets\parks\56.jpg" />
+    <Content Include="Assets\parks\57.jpg" />
+    <Content Include="Assets\parks\58.jpg" />
+    <Content Include="Assets\parks\59.jpg" />
+    <Content Include="Assets\parks\6.jpg" />
+    <Content Include="Assets\parks\60.jpg" />
+    <Content Include="Assets\parks\61.jpg" />
+    <Content Include="Assets\parks\62.jpg" />
+    <Content Include="Assets\parks\63.jpg" />
+    <Content Include="Assets\parks\64.jpg" />
+    <Content Include="Assets\parks\65.jpg" />
+    <Content Include="Assets\parks\66.jpg" />
+    <Content Include="Assets\parks\67.jpg" />
+    <Content Include="Assets\parks\68.jpg" />
+    <Content Include="Assets\parks\69.jpg" />
+    <Content Include="Assets\parks\7.jpg" />
+    <Content Include="Assets\parks\70.jpg" />
+    <Content Include="Assets\parks\71.jpg" />
+    <Content Include="Assets\parks\72.jpg" />
+    <Content Include="Assets\parks\73.jpg" />
+    <Content Include="Assets\parks\74.jpg" />
+    <Content Include="Assets\parks\75.jpg" />
+    <Content Include="Assets\parks\76.jpg" />
+    <Content Include="Assets\parks\77.jpg" />
+    <Content Include="Assets\parks\78.jpg" />
+    <Content Include="Assets\parks\79.jpg" />
+    <Content Include="Assets\parks\8.jpg" />
+    <Content Include="Assets\parks\80.jpg" />
+    <Content Include="Assets\parks\9.jpg" />
+    <Content Include="Assets\parks\moscow_parks_logo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Page Include="CommentsSplitPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Content Include="Common\ReadMe.txt" />
     <Page Include="SearchResultsPage.xaml">
       <SubType>Designer</SubType>
@@ -181,6 +272,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TouristControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\AddCommentControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,3 +1,4 @@
+using Callisto.Controls;
 using GalaSoft.MvvmLight;
 using Microsoft.WindowsAzure.MobileServices;
 using System.Collections.ObjectModel;
@@ -68,7 +69,9 @@ namespace moscow_parks.ViewModel
                 RaisePropertyChanged("CurrentItem");
             }
         }
-        
+
+        public Flyout AddBox = new Flyout();
+               
 
         private MobileServiceCollection<ParkItem, ParkItem> parkItems;
         private IMobileServiceTable<ParkItem> ParksTable = App.MobileService.GetTable<ParkItem>();
@@ -76,7 +79,7 @@ namespace moscow_parks.ViewModel
         public async Task<bool> LoadData()
         {
             this.Loading = true;
-            Items = await ParksTable.ToCollectionAsync();
+            Items = await ParksTable.ToCollectionAsync(100);
             RaisePropertyChanged("Items");
             this.Loading = false;
 
