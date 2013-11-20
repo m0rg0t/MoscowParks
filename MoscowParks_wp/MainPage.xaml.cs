@@ -27,7 +27,7 @@ namespace MoscowParks_wp
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
+            if (App.ViewModel.Items.Count()<1)
             {
                 App.ViewModel.LoadData();
             }

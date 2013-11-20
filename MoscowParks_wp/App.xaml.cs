@@ -12,11 +12,19 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using MoscowParks_wp.ViewModel;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace MoscowParks_wp
 {
     public partial class App : Application
     {
+
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+            "https://moscow-parks.azure-mobile.net/",
+            "FYMJRmyzrmjgNKEfdkUGOHHwbraOqe36"
+        );
+
         private static MainViewModel viewModel = null;
 
         /// <summary>
@@ -88,7 +96,7 @@ namespace MoscowParks_wp
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
+            if (App.ViewModel.Items.Count()<1)
             {
                 App.ViewModel.LoadData();
             }

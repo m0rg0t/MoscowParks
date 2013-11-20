@@ -1,4 +1,7 @@
 using GalaSoft.MvvmLight;
+using Microsoft.WindowsAzure.MobileServices;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace MoscowParks_wp.ViewModel
 {
@@ -29,6 +32,60 @@ namespace MoscowParks_wp.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private ObservableCollection<ParkItem> _items = new ObservableCollection<ParkItem>();
+        /// <summary>
+        /// Park items
+        /// </summary>
+        public ObservableCollection<ParkItem> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                RaisePropertyChanged("Items");
+            }
+        }
+
+        private bool _loading = false;
+
+        public bool Loading
+        {
+            get { return _loading; }
+            set
+            {
+                _loading = value;
+                RaisePropertyChanged("Loading");
+            }
+        }
+
+        private ParkItem _currentItem;
+
+        public ParkItem CurrentItem
+        {
+            get { return _currentItem; }
+            set
+            {
+                _currentItem = value;
+                RaisePropertyChanged("CurrentItem");
+            }
+        }
+
+        //public Flyout AddBox = new Flyout();
+
+
+        private MobileServiceCollection<ParkItem, ParkItem> parkItems;
+        private IMobileServiceTable<ParkItem> ParksTable = App.MobileService.GetTable<ParkItem>();
+
+        public async Task<bool> LoadData()
+        {
+            this.Loading = true;
+            Items = await ParksTable.ToCollectionAsync(100);
+            RaisePropertyChanged("Items");
+            this.Loading = false;
+
+            return true;
         }
     }
 }
