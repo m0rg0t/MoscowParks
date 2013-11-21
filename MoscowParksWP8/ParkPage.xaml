@@ -10,21 +10,78 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    SupportedOrientations="Portrait" 
+    DataContext="{Binding Main.CurrentItem, Source={StaticResource Locator}}" 
+    Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
+
+
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot">
-        <phone:Panorama Title="my application">
+        <phone:Panorama>
+            <phone:Panorama.Title>
+                <TextBlock Text="{Binding Title}" 
+                           Margin="0,30,0,0"
+                           FontSize="80"/>
+            </phone:Panorama.Title>
 
             <!--Panorama item one-->
-            <phone:PanoramaItem Header="item1">
-                <Grid/>
+            <phone:PanoramaItem>
+                <phone:PanoramaItem.Header>
+                    <TextBlock Text="Описание"/>
+                </phone:PanoramaItem.Header>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
+
+                            <TextBlock Text="{Binding Address}" 
+											TextWrapping="Wrap" Margin="0,-20,0,0"/>
+
+                            <Image x:Name="image" MaxWidth="400" Margin="0,20,0,10" Stretch="Uniform" 
+                                   Source="{Binding Image}" AutomationProperties.Name="{Binding Title}" 
+                                   HorizontalAlignment="Center"/>
+
+                            <StackPanel Visibility="{Binding OfficialAddressVisibility}">
+                                <TextBlock Text="Официальный адрес: " />
+                                <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding OfficialAddress}"/>
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding EmailVisibility}">
+                                <TextBlock Text="Email: " />
+                                <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding Email}" />
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding PhoneVisibility}">
+                                <TextBlock Text="Телефон: " />
+                                <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding Phone}" />
+                            </StackPanel>
+
+                            <StackPanel  Visibility="{Binding FaxVisibility}">
+                                <TextBlock Text="Факс: " />
+                                <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding Fax}" />
+                            </StackPanel>
+
+                            <!--<StackPanel Orientation="Horizontal" Visibility="{Binding SiteVisibility}">
+                                            <TextBlock Text="Сайт: " Style="{StaticResource BodyTextStyle}"/>
+                                            <TextBlock FontWeight="Normal" Style="{StaticResource BodyTextStyle}" Text="{Binding Site}"/>
+                                            </StackPanel>-->
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding DistrictVisibility}">
+                                <TextBlock Text="Район: "/>
+                                <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding District}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
             </phone:PanoramaItem>
 
             <!--Panorama item two-->
-            <phone:PanoramaItem Header="item2">
-                <Grid/>
+            <phone:PanoramaItem Header="Карта">
+                <Grid>
+                    <maps:Map Name="PlaceMap" ZoomLevel="16" Loaded="PlaceMap_Loaded"/>
+                </Grid>
             </phone:PanoramaItem>
         </phone:Panorama>
     </Grid>

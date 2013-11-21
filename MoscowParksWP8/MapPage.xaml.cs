@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Device.Location;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using GART;
+using GART.Data;
 
 namespace MoscowParksWP8
 {
@@ -35,7 +37,7 @@ namespace MoscowParksWP8
         private void DrawMapMarkers()
         {
             PlaceMap.Layers.Clear();
-            MapLayer mapLayer = new MapLayer();
+            MapLayer mapLayer = new MapLayer();            
 
             // Draw marker for current position
             if (ViewModelLocator.MainStatic.Items.Count() > 0)
@@ -48,6 +50,19 @@ namespace MoscowParksWP8
 
             PlaceMap.Layers.Add(mapLayer);
             PlaceMap.Center = ViewModelLocator.MainStatic.Items.FirstOrDefault().Position;
+
+            ARDisplay.ARItems.Clear();
+            ARDisplay.LocationEnabled = false;
+            // Pretend we're here
+            ARDisplay.Location = ViewModelLocator.MainStatic.Items.FirstOrDefault().Position;
+
+            foreach (var item in ViewModelLocator.MainStatic.Items)
+            {
+                ARItem arItem = new ARItem();
+                arItem.GeoLocation = item.Position;
+                arItem.Content = item.Title.ToString();
+                ARDisplay.ARItems.Add(arItem);
+            };
         }
 
         private void DrawMapMarker(GeoCoordinate coordinate, ParkItem place, MapLayer mapLayer)
@@ -88,5 +103,25 @@ namespace MoscowParksWP8
             }
             catch { };
         }
+
+        private void ThreeDButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UIHelper.ToggleVisibility(this.VideoPreviewItem);
+                UIHelper.ToggleVisibility(this.WorldViewItem);
+            }
+            catch { };
+        }
+
+        private void ARDisplay_LocationChanged(object sender, EventArgs e)
+        {
+            // TODO: For now only search once on startup but later search after the user has traveled some distance
+            /*if (lastSearchLocation == null)
+            {
+                BeginSearch();
+            }*/
+        }
+
     }
 }

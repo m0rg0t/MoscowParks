@@ -75,6 +75,19 @@ namespace MoscowParksWP8.ViewModel
 
         //public Flyout AddBox = new Flyout();
 
+        private Collection<string> _parkImages = new Collection<string>();
+        /// <summary>
+        /// 
+        /// </summary>
+        public Collection<string> ParkImages
+        {
+            get { return _parkImages; }
+            set
+            {
+                _parkImages = value;
+                RaisePropertyChanged("ParkImages");
+            }
+        }
 
         private MobileServiceCollection<ParkItem, ParkItem> parkItems;
         private IMobileServiceTable<ParkItem> ParksTable = App.MobileService.GetTable<ParkItem>();
@@ -83,6 +96,12 @@ namespace MoscowParksWP8.ViewModel
         {
             this.Loading = true;
             Items = await ParksTable.ToCollectionAsync(100);
+            ParkImages = new Collection<string>();
+            foreach (var item in Items)
+            {
+                ParkImages.Add(item.Image);
+            };
+            RaisePropertyChanged("ParkImages");
             RaisePropertyChanged("Items");
             this.Loading = false;
 

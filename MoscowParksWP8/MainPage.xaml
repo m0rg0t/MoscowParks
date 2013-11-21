@@ -57,7 +57,10 @@
                         <!--<telerikPrimitives:RadHubTile Title="Карта МВД" ImageSource="/Images/map2.png" Name="MVDMap" Tap="MVDMap_Tap"/>
                         <telerikPrimitives:RadHubTile Title="Поиск МВД" ImageSource="/Images/search2.png"/>-->
                         <telerikPrimitives:RadHubTile Title="Поиск" Name="SearchTile" ImageSource="Images/search2.png"/>
-                        <telerikPrimitives:RadHubTile Title="Ближайшие" Name="NearestTile"/>
+                        <telerikPrimitives:RadMosaicHubTile Title="Ближайшие" 
+                            ImageSources="{Binding Path=ParkImages}"
+                            DataContext="{Binding Main, Source={StaticResource Locator}}" 
+                            Name="NearestTile"/>
                     </telerikPrimitives:RadWrapPanel>
                 </Grid>
             </phone:PanoramaItem>
@@ -92,7 +95,7 @@
                                 <StackPanel Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch">
                                     <TextBlock 
                                         Text="{Binding Title}" Margin="0" />
-                                    <TextBlock Text="{Binding Address}"
+                                    <TextBlock Text="{Binding Address}" TextWrapping="Wrap"
                                                Style="{StaticResource PhoneTextAccentStyle}" 
                                                Margin="0"/>
                                 </StackPanel>

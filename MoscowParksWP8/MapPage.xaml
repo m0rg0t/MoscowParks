@@ -11,11 +11,37 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    xmlns:ARControls="clr-namespace:GART.Controls;assembly=GART.WP8"
     xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
     shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="RestaurantItem">
+            <Border BorderBrush="Black" BorderThickness="4" CornerRadius="8" Background="#FF003847" Width="320">
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="0.33*"/>
+                        <RowDefinition Height="16"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="3" Source="/Assets/moscow_parks_logo.png" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="NameBlock" TextWrapping="Wrap" Text="{Binding Content}" FontSize="32" VerticalAlignment="Center" Margin="0,0,4,0" d:LayoutOverrides="Width" Grid.Column="1" TextTrimming="WordEllipsis"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Mode="Minimized"/>
+        <shell:ApplicationBar>
+            <shell:ApplicationBar.MenuItems>
+                <!--<shell:ApplicationBarMenuItem x:Name="GoFixedMenuItem" IsEnabled="True" Text="Fixed Location Mode" Click="GoFixedMenuItem_Click"/>-->
+            </shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton x:Name="ThreeDButton" IconUri="/icons/appbar.3D.png" IsEnabled="True" Text="3D" Click="ThreeDButton_Click"/>
+        </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -33,7 +59,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <maps:Map Name="PlaceMap" ZoomLevel="10" Loaded="PlaceMap_Loaded"/>
+            <ARControls:ARDisplay x:Name="ARDisplay" LocationChanged="ARDisplay_LocationChanged" AttitudeRefreshRate="50">
+                <ARControls:VideoPreview x:Name="VideoPreviewItem" />
+                <ARControls:WorldView x:Name="WorldViewItem" ItemTemplate="{StaticResource RestaurantItem}" />
+                <ARControls:HeadingIndicator x:Name="HeadingIndicator" Width="300" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </ARControls:ARDisplay>
+            <maps:Map Name="PlaceMap" ZoomLevel="11" Visibility="Collapsed" Loaded="PlaceMap_Loaded"/>
         </Grid>
     </Grid>
 
